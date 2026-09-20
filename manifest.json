@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "bakugo.cliamp",
+  "name": "CLIamp Radio",
+  "version": "0.1.0",
+  "license": "MIT",
+  "kinds": ["bar-widget"],
+  "entryPoints": {
+    "barWidget": "Panel.qml"
+  },
+  "barWidget": {
+    "displayName": "CLIamp",
+    "description": "Omarchy Radio player — click to toggle play/pause",
+    "category": "media",
+    "aliases": ["cliamp", "radio"],
+    "allowMultiple": false,
+    "defaults": {
+      "maxWidth": 400
+    },
+    "schema": []
+  }
+}

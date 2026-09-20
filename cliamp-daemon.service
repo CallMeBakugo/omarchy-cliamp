@@ -1,0 +1,13 @@
+[Unit]
+Description=cliamp headless daemon (Omarchy Radio)
+After=network-online.target sound.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/cliamp --daemon --playlist "Favorites" --auto-play
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=default.target
