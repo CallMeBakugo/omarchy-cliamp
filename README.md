@@ -20,6 +20,14 @@ omarchy plugin add https://github.com/CallMeBakugo/omarchy-cliamp
 
 Then place the widget: `omarchy bar put bakugo.cliamp --section right --after omarchy.tray`
 
+## Remove
+
+```bash
+omarchy plugin remove bakugo.cliamp --yes
+```
+
+This removes the plugin from your config and cleans up the bar placement.
+
 ## Recommended: run cliamp headless
 
 The widget is most useful when cliamp doesn't need a terminal open. Install the bundled systemd user service:
