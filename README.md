@@ -2,6 +2,9 @@
 
 A bar widget for [Omarchy](https://omarchy.org) that puts [cliamp](https://cliamp.stream) playback in your bar: a play/pause chip that always shows the current state, with the track / artist / station on hover. Built for Omarchy Radio, works with anything cliamp plays.
 
+![Playing](docs/bar-playing.png)
+![Paused](docs/bar-paused.png)
+
 ## What it does
 
 - ▶ / ⏸ icon in the bar, always visible, click to toggle playback
