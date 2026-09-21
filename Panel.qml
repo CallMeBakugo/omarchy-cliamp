@@ -25,10 +25,11 @@ BarWidget {
     function update(raw) {
         try {
             var data = JSON.parse(raw)
-            if (data.ok && data.track) {
-                root.trackTitle = data.track.title ?? ""
-                root.trackArtist = data.track.artist ?? ""
-                root.station = data.track.station ?? ""
+            if (data.ok) {
+                // status --json omits "track" while stopped; show the widget anyway
+                root.trackTitle = data.track?.title ?? "Omarchy Radio"
+                root.trackArtist = data.track?.artist ?? ""
+                root.station = data.track?.station ?? ""
                 root.playing = data.state === "playing"
                 root.loaded = true
             }
