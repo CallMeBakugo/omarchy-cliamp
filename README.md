@@ -7,7 +7,7 @@ A bar widget for [Omarchy](https://omarchy.org) that puts [cliamp](https://cliam
 
 ## What it does
 
-- ▶ / ⏸ icon in the bar, always visible, click to toggle playback
+- ▶ / ⏸ chip in the bar — a bordered icon tile (filled while playing, dim while paused), click to toggle playback
 - Hover tooltip: current track — artist • station
 - Polls `cliamp status --json` every 2 s; hides itself only when cliamp isn't running at all
 - Works against the cliamp TUI **or** the headless daemon (`cliamp --daemon`)
@@ -50,7 +50,7 @@ That runs `cliamp --daemon --playlist "Favorites" --auto-play` at login (edit th
 
 ## How it works
 
-The widget shells out to `cliamp status --json` on a 2 s timer (Quickshell `Process` + `StdioCollector`) and renders a `BarIconButton` with `Quickshell.execDetached` for the play/pause command. No extra daemons of its own, no socket protocol code — cliamp's CLI is the interface.
+The widget shells out to `cliamp status --json` on a 2 s timer (Quickshell `Process` + `StdioCollector`) and renders a bordered chip tile — `BorderSurface` backdrop with a `BarIconButton` glyph on top, filled/bright while playing and dim while paused — using `Quickshell.execDetached` for the play/pause command. No extra daemons of its own, no socket protocol code — cliamp's CLI is the interface.
 
 One quirk worth knowing: cliamp's `toggle` subcommand cycles playing → paused → *stopped*, so a second click would kill the stream. The widget therefore sends `toggle` only while playing and `play` to resume.
 
