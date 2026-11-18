@@ -1,59 +1,32 @@
-# CLIamp Radio — Omarchy bar widget
+# CLIamp for Omarchy
 
-A bar widget for [Omarchy](https://omarchy.org) that puts [cliamp](https://cliamp.stream) playback in your bar: a play/pause chip that always shows the current state, with the track / artist / station on hover. Built for Omarchy Radio, works with anything cliamp plays.
+Put playback controls for [CLIamp](https://cliamp.stream) in the Omarchy bar. The circular badge reflects playback state, and its tooltip shows the track, artist, and station when available.
 
-![Playing](docs/bar-playing.png)
-![Paused](docs/bar-paused.png)
-
-## What it does
-
-- ▶ / ⏸ chip in the bar — a bordered icon tile (filled while playing, dim while paused), click to toggle playback
-- Hover tooltip: current track — artist • station
-- Polls `cliamp status --json` every 2 s; hides itself only when cliamp isn't running at all
-- Works against the cliamp TUI **or** the headless daemon (`cliamp --daemon`)
+![CLIamp playback badge](preview.png)
 
 ## Install
 
-```bash
-omarchy plugin add https://github.com/CallMeBakugo/omarchy-cliamp
+Requires Omarchy 4.x with Quickshell and CLIamp 2.x on your `PATH`. The widget was tested with CLIamp 2.4.1.
+
+```sh
+omarchy plugin add https://github.com/CallMeBakugo/omarchy-cliamp.git --enable
 ```
 
-Then place the widget: `omarchy bar put bakugo.cliamp --section right --after omarchy.tray`
+Start CLIamp normally. The widget connects to the running terminal player or headless daemon over CLIamp's local interface.
+
+## Use
+
+- Click to pause an active track or resume playback.
+- Hover for track information. The widget refreshes about every two seconds and hides when it cannot reach a running player.
+
+For headless playback, the repository includes an optional [user service](cliamp-daemon.service) that autoplays a local playlist named `Favorites`. Review the service and edit its playlist before enabling it. The terminal player and daemon share the same socket, so run one at a time.
 
 ## Remove
 
-```bash
+```sh
 omarchy plugin remove bakugo.cliamp --yes
 ```
 
-This removes the plugin from your config and cleans up the bar placement.
+If you installed the optional service, disable it with `systemctl --user disable --now cliamp-daemon.service` and remove the unit you copied into your user service directory.
 
-## Recommended: run cliamp headless
-
-The widget is most useful when cliamp doesn't need a terminal open. Install the bundled systemd user service:
-
-```bash
-cp cliamp-daemon.service ~/.config/systemd/user/
-systemctl --user daemon-reload
-systemctl --user enable --now cliamp-daemon.service
-```
-
-That runs `cliamp --daemon --playlist "Favorites" --auto-play` at login (edit the service to change the playlist). Notes:
-
-- The TUI and the daemon are mutually exclusive — both want `~/.config/cliamp/cliamp.sock`. Stop the daemon (`systemctl --user stop cliamp-daemon`) before launching the TUI, and vice versa.
-- The widget talks to whichever one owns the socket; nothing else changes.
-
-## Requirements
-
-- [Omarchy](https://omarchy.org) (tested on 4.0.4)
-- [cliamp](https://cliamp.stream) v2.0+ installed and in `$PATH`
-
-## How it works
-
-The widget shells out to `cliamp status --json` on a 2 s timer (Quickshell `Process` + `StdioCollector`) and renders a bordered chip tile — `BorderSurface` backdrop with a `BarIconButton` glyph on top, filled/bright while playing and dim while paused — using `Quickshell.execDetached` for the play/pause command. No extra daemons of its own, no socket protocol code — cliamp's CLI is the interface.
-
-One quirk worth knowing: cliamp's `toggle` subcommand cycles playing → paused → *stopped*, so a second click would kill the stream. The widget therefore sends `toggle` only while playing and `play` to resume.
-
-## License
-
-MIT
+[MIT license](LICENSE).

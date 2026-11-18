@@ -2,20 +2,25 @@
   "schemaVersion": 1,
   "id": "bakugo.cliamp",
   "name": "CLIamp Radio",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "CallMeBakugo",
   "homepage": "https://github.com/CallMeBakugo/omarchy-cliamp",
   "license": "MIT",
-  "description": "cliamp playback in the Omarchy bar: a play/pause chip that stays visible in both states, a hover tooltip showing track and station, and a click to toggle. Built around Omarchy Radio but works with anything cliamp plays.",
-  "kinds": ["bar-widget"],
+  "description": "CLIamp play and pause controls with live track information in the Omarchy bar.",
+  "kinds": [
+    "bar-widget"
+  ],
   "entryPoints": {
     "barWidget": "Panel.qml"
   },
   "barWidget": {
     "displayName": "CLIamp",
-    "description": "Omarchy Radio player — click to toggle play/pause",
-    "category": "media",
-    "aliases": ["cliamp", "radio"],
+    "description": "CLIamp play and pause controls with live track information in the Omarchy bar.",
+    "category": "Media",
+    "aliases": [
+      "cliamp",
+      "radio"
+    ],
     "allowMultiple": false,
     "defaults": {
       "maxWidth": 400
